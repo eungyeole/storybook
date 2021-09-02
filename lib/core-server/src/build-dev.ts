@@ -25,7 +25,7 @@ import { getManagerBuilder } from './utils/get-manager-builder';
 
 export async function buildDevStandalone(options: CLIOptions & LoadOptions & BuilderOptions) {
   const { packageJson, versionUpdates, releaseNotes } = options;
-  const { version } = packageJson;
+  const { version, name = '' } = packageJson;
 
   // updateInfo and releaseNotesData are cached, so this is typically pretty fast
   const [port, versionCheck, releaseNotesData] = await Promise.all([
@@ -113,6 +113,7 @@ export async function buildDevStandalone(options: CLIOptions & LoadOptions & Bui
   outputStartupInformation({
     updateInfo: versionCheck,
     version,
+    name: name.split('@storybook/')[1],
     address,
     networkAddress,
     managerTotalTime,
